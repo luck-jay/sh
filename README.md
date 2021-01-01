@@ -1,1 +1,15 @@
-# sh
+# 一些定制的linux脚本，可以在开机时自动设置一些有关的功能
+* autoDwm.sh
+   > dwm启动时执行的脚本
+* printDate.sh
+   > 除了输出时间之外，还会输出当前的电量信息和声音
+* setXmodmap.sh
+   > 设置键盘键让操作变得更加方便
+* showstatus.sh
+   > 显示当前的状态栏
+* touchpad.sh
+   > 设置触控板更加符合操作习惯
+* volumeDowm.sh
+   > 降低音量5%
+* volumeUp.sh
+   > 增加音量5%
