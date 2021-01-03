@@ -1,8 +1,8 @@
 # 一些定制的linux脚本，可以在开机时自动设置一些有关的功能
 * autoDwm.sh
    > dwm启动时执行的脚本
-* printDate.sh
-   > 除了输出时间之外，还会输出当前的电量信息和声音
+* printinfo.sh
+   > 输出系统基本信息
 * setXmodmap.sh
    > 设置键盘键让操作变得更加方便
 * showstatus.sh

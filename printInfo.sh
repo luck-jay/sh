@@ -69,6 +69,7 @@ function getinernet(){
 	# 判断网卡类型
 	if [ -z "$INTER" ]; then
 		NET="No"
+		SPEED="RX:0B TX:0B"
 	else
 		if [ "${INTER:0:1}" = "e" ]; then
 			NET="Ethernet"
