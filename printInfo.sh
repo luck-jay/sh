@@ -21,13 +21,14 @@ function getvolume(){
 # 更新当前网速
 function getspeed(){
 	DATA=$(ip -s link | awk '{print $1,$2}' | grep -A 5 $1 | grep -A 1 bytes)
-	RX1=$(echo $DATA | awk '{print $3}')
-	TX1=$(echo $DATA | awk '{print $7}')
+	RX1=$(echo $DATA  | awk '{print $3}')
+	TX1=$(echo $DATA  | awk '{print $7}')
+	# 等待1秒
 	sleep 1s
 	# 第二次获得数据包
 	DATA=$(ip -s link | awk '{print $1,$2}' | grep -A 5 $1 | grep -A 1 bytes)
-	RX2=$(echo $DATA | awk '{print $3}')
-	TX2=$(echo $DATA | awk '{print $7}')
+	RX2=$(echo $DATA  | awk '{print $3}')
+	TX2=$(echo $DATA  | awk '{print $7}')
 	# 计算网速
 	RX=$(expr $RX2 - $RX1)
 	TX=$(expr $TX2 - $TX1)
