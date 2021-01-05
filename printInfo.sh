@@ -1,8 +1,8 @@
 #!/bin/sh
 ELECTRICITY="0%"
 VOLUME="0%"
-NET=""
-SPEED="↓0B/s ↑0B/s"
+NET="❌"
+SPEED="⬇0B/s,⬆0B/s"
 # 更新当前电池信息
 function getacpi(){
 	DATA=$(acpi)
@@ -10,13 +10,29 @@ function getacpi(){
 	DATASTATE=${DATASTATE%%,*}
 	DATA=${DATA#*,}
 	ELECTRICITY=${DATA%%,*}
-	ELECTRICITY=${ELECTRICITY:1}""$DATASTATE
+	ELECTRICITY=${ELECTRICITY:1}
+	if [ $DATASTATE = "Discharging" ]; then
+		ELECTRICITY="🔋,"$ELECTRICITY
+	else
+		ELECTRICITY="🔌,"$ELECTRICITY
+	fi
 }
 # 更新当前音量
 function getvolume(){
 	DATA=$(amixer get Master | grep Mono)
 	DATA=${DATA#*[}
 	VOLUME=${DATA%%]*}
+	DATA=${VOLUME%\%*}
+	# 判断音量符号
+	if [ $DATA -ge 70 ]; then
+		VOLUME="🔊,"$VOLUME
+	elif [ $DATA -ge 40 -a $DATA -lt 70 ]; then
+		VOLUME="🔉,"$VOLUME
+	elif [ $DATA -gt 0 -a $DATA -lt 40 ]; then
+		VOLUME="🔈,"$VOLUME
+	else
+		VOLUME="🔇,"$VOLUME
+	fi
 }
 # 更新当前网速
 function getspeed(){
@@ -49,7 +65,7 @@ function getspeed(){
 		TX=$(echo "scale=1; $TX / 1048576" | bc)"M/s"
 	fi
 
-	SPEED="↓$RX ↑$TX"
+	SPEED="⬇$RX,⬆$TX"
 }
 # 更新网络状态
 function getinernet(){
@@ -68,15 +84,15 @@ function getinernet(){
 	fi
 	# 判断网卡类型
 	if [ -z "$INTER" ]; then
-		NET="No"
-		SPEED="RX:0B TX:0B"
+		NET="❌"
+		SPEED="⬇0B/s,⬆0B/s"
 	else
 		if [ "${INTER:0:1}" = "e" ]; then
-			NET="Ethernet"
+			NET="📶"
 		elif [ "${INTER:0:1}" = "w" ]; then
-			NET="Wifi"
+			NET="📡"
 		else
-			NET="No"
+			NET="❌"
 		fi
 		# 计算实时网速
 		getspeed $INTER
@@ -86,6 +102,6 @@ function getinernet(){
 while true; do
 	getacpi
 	getvolume
-	xsetroot -name "$SPEED|NET:$NET|VOL:$VOLUME|BAT:$ELECTRICITY|$(date "+%Y-%m-%d %H:%M:%S")"
+	xsetroot -name "$NET[$SPEED][$VOLUME][$ELECTRICITY]$(date "+%Y-%m-%d %H:%M:%S")"
 	getinernet
 done
