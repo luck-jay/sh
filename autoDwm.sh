@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # 启动窗口渲染器
 compton &
 # 加载键盘布局

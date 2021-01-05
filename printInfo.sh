@@ -2,7 +2,7 @@
 ELECTRICITY="0%"
 VOLUME="0%"
 NET=""
-SPEED="RX:0B TX:0B"
+SPEED="↓0B/s ↑0B/s"
 # 更新当前电池信息
 function getacpi(){
 	DATA=$(acpi)
@@ -49,7 +49,7 @@ function getspeed(){
 		TX=$(echo "scale=1; $TX / 1048576" | bc)"M/s"
 	fi
 
-	SPEED="RX:$RX TX:$TX"
+	SPEED="↓$RX ↑$TX"
 }
 # 更新网络状态
 function getinernet(){
