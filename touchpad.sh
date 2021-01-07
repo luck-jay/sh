@@ -1,5 +1,5 @@
 #!/bin/bash
-# 获取触摸板信息,如果没有获取到触控板则推出这个脚本
+# 获取触摸板信息,如果没有获取到触控板则退出这个脚本
 DATA=$(xinput list | grep Touchpad) || exit 1
 DATA=${DATA##*=}
 touchpad=${DATA%%\[*}
