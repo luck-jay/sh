@@ -84,7 +84,7 @@ function getinernet(){
 	fi
 	# 判断网卡类型
 	if [ -z "$INTER" ]; then
-		NET="❌"
+		NET="no"
 		SPEED="⬇0B/s,⬆0B/s"
 	else
 		if [ "${INTER:0:1}" = "e" ]; then
@@ -92,7 +92,7 @@ function getinernet(){
 		elif [ "${INTER:0:1}" = "w" ]; then
 			NET="📡"
 		else
-			NET="❌"
+			NET="no"
 		fi
 		# 计算实时网速
 		getspeed $INTER
@@ -102,6 +102,10 @@ function getinernet(){
 while true; do
 	getacpi
 	getvolume
-	xsetroot -name "$NET[$SPEED][$VOLUME][$ELECTRICITY]$(date "+%Y-%m-%d %H:%M:%S")"
+	if [ $NET = "no" ]; then
+		xsetroot -name "[$VOLUME][$ELECTRICITY]$(date "+%Y-%m-%d %H:%M:%S")"
+	else
+		xsetroot -name "$NET[$SPEED][$VOLUME][$ELECTRICITY]$(date "+%Y-%m-%d %H:%M:%S")"
+	fi
 	getinernet
 done
