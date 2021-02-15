@@ -19,7 +19,7 @@ function getacpi(){
 }
 # 更新当前音量
 function getvolume(){
-	DATA=$(amixer get Master | grep Mono)
+	DATA=$(amixer get Master | grep "\[on\]" | grep Left)
 	DATA=${DATA#*[}
 	VOLUME=${DATA%%]*}
 	DATA=${VOLUME%\%*}
