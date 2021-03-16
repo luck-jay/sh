@@ -1,6 +1,8 @@
 #!/bin/sh
 # 启动窗口渲染器
-compton &
+picom &
+# 设置熄屏时间为10分钟
+xset dpms 600
 # 加载键盘布局
 $HOME/sh/setXmodmap.sh &
 # 显示系统信息
