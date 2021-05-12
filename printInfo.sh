@@ -70,7 +70,7 @@ function getspeed(){
 # 更新网络状态
 function getinernet(){
 	# 获取网卡名称
-	INTER=$(ip addr | grep -v lo | grep LOWER_UP | awk '{print $2}')
+	INTER=$(ip addr | grep -v lo: | grep -B 2 inet\  | grep LOWER_UP | awk '{print $2}')
 	I1=${INTER%%:*}
 	I2=${INTER#*:}
 	I2=${I2%:*}
