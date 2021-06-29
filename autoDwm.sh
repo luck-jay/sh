@@ -12,7 +12,5 @@ nitrogen --restore
 # feh --randomize --bg-fill ~/image
 # 配置java应用程序会出现的问题
 wmname LG3D
-# 配置触摸板
-$HOME/sh/touchpad.sh &
 # 启动显卡管理器
 optimus-manager-qt &
